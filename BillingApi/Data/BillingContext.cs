@@ -7,6 +7,7 @@ public class BillingContext(DbContextOptions<BillingContext> options) : DbContex
 {
     // Define the Sets of the Database (each of set represent a table of the database)
     public DbSet<Product> Products { get; set; }
+    public DbSet<User> Users { get; set; }
     
     // This method that execute when EF build the model for the database
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -15,5 +16,6 @@ public class BillingContext(DbContextOptions<BillingContext> options) : DbContex
         
         // Define the name of the database
         modelBuilder.Entity<Product>().ToTable("Products");
+        modelBuilder.Entity<User>().ToTable("Users");
     }
 }
