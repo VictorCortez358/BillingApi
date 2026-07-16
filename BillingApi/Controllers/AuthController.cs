@@ -32,6 +32,28 @@ namespace BillingApi.Controllers
                 return BadRequest(new { mensaje = ex.Message });
             }
         }
+
+        [HttpPost($"login")]
+        public IActionResult LoginUser([FromBody] LoginDto dto)
+        {
+            try
+            {
+                var correctCredentials = userService.VerifyCredentials(dto.Email, dto.Password);
+                if (!correctCredentials)
+                {
+                    return Unauthorized(new { mensaje = "Invalid credentials" });
+                }
+                return Ok(new { mensaje = "Login successful" });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "An error occurred" });
+            }
+        }
         
     }
 }

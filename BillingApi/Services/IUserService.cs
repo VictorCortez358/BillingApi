@@ -6,6 +6,6 @@ public interface IUserService
 {
     void RegisterUser(User user,  string password);
     User? GetUserByEmail(string email);
-    
     IEnumerable<User> GetUsers();
+    bool VerifyCredentials(string email, string password);
 }

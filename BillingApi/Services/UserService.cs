@@ -29,4 +29,10 @@ public class UserService(IUserRepository repository) : IUserService
         var users = repository.GetUsers();
         return users;
     }
+
+    public bool VerifyCredentials(string email, string password)
+    {
+        var userExist = repository.GetUserByEmail(email);
+        return userExist == null ? throw new ArgumentException("User doesn't exist") : BCrypt.Net.BCrypt.Verify(password, userExist.Password);
+    }
 }
